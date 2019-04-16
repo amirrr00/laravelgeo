@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LocationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index' , 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Location::all();
+        return view('location.index' , compact('locations'));
     }
 
     /**
@@ -23,7 +32,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('location.create');
     }
 
     /**
@@ -34,7 +43,30 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->middleware = '';
+
+        $request->validate([
+            'name' => 'required|max:20' ,
+            'description' => 'required|min:4' ,
+            'address' => 'required|min:10',
+            'latitude' => 'required',
+            'longitude' => 'required'
+        ]);
+
+
+        $location = Location::create([
+            'user_id' => Auth::user()->id ,
+            'name' => $request->get('name'),
+            'description' => $request->get('description') ,
+            'address' => $request->get('address'),
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude')
+        ]);
+
+
+        return redirect(route('location.create'));
+
+
     }
 
     /**
@@ -45,7 +77,8 @@ class LocationController extends Controller
      */
     public function show($id)
     {
-        //
+       $location = Location::find($id);
+       return view('location.show' , compact('location'));
     }
 
     /**
@@ -56,7 +89,8 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $location = Location::find($id);
+        return view('location.edit' , compact('location'));
     }
 
     /**
@@ -68,7 +102,9 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $location = Location::find($id);
+        $location->update($request->except(['_token' , '_method']));
+        return redirect(route('location.index'));
     }
 
     /**

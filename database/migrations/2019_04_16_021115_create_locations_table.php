@@ -21,7 +21,8 @@ class CreateLocationsTable extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('address');
-            $table->string('location');
+            $table->string('latitude');
+            $table->string('longitude');
 
             $table->timestamps();
         });
