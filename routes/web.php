@@ -13,11 +13,12 @@
 
 Auth::routes();
 
-Route::get('/','HomeController@index');
+Route::get('/', 'HomeController@index');
 
 Route::resource('location', 'LocationController');
 
-
+Route::get('category/create', 'CategoryController@create');
+Route::post('category/', 'CategoryController@store')->name('category.store');
 
 
 

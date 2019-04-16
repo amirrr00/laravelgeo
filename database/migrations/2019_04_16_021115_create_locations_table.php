@@ -17,6 +17,7 @@ class CreateLocationsTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('user_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->string('name');
             $table->string('slug');
             $table->text('description');

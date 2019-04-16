@@ -11,7 +11,7 @@ class LocationController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index' , 'show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     /**
@@ -22,7 +22,7 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
-        return view('location.index' , compact('locations'));
+        return view('location.index', compact('locations'));
     }
 
     /**
@@ -38,26 +38,24 @@ class LocationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->middleware = '';
-
         $request->validate([
-            'name' => 'required|max:20' ,
-            'description' => 'required|min:4' ,
+            'name' => 'required|max:20',
+            'description' => 'required|min:4',
             'address' => 'required|min:10',
             'latitude' => 'required',
             'longitude' => 'required'
         ]);
 
 
-        $location = Location::create([
-            'user_id' => Auth::user()->id ,
+        Location::create([
+            'user_id' => Auth::user()->id,
             'name' => $request->get('name'),
-            'description' => $request->get('description') ,
+            'description' => $request->get('description'),
             'address' => $request->get('address'),
             'latitude' => $request->get('latitude'),
             'longitude' => $request->get('longitude')
@@ -72,45 +70,45 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-       $location = Location::find($id);
-       return view('location.show' , compact('location'));
+        $location = Location::find($id);
+        return view('location.show', compact('location'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $location = Location::find($id);
-        return view('location.edit' , compact('location'));
+        return view('location.edit', compact('location'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $location = Location::find($id);
-        $location->update($request->except(['_token' , '_method']));
+        $location->update($request->except(['_token', '_method']));
         return redirect(route('location.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
