@@ -5,7 +5,7 @@ namespace App;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
-class Location extends Model
+class Category extends Model
 {
     use Sluggable;
 
@@ -19,23 +19,12 @@ class Location extends Model
     }
 
     protected $fillable = [
-        'user_id',
         'name',
-        'slug',
-        'description',
-        'address',
-        'latitude',
-        'longitude'
+        'slug'
     ];
 
-    public function user()
+    public function locations()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Location::class);
     }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
 }
