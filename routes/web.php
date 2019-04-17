@@ -17,8 +17,13 @@ Route::get('/', 'HomeController@index');
 
 Route::resource('location', 'LocationController');
 
-Route::get('category/create', 'CategoryController@create');
-Route::post('category/', 'CategoryController@store')->name('category.store');
+
+Route::get('category', 'CategoryController@index')->name('category.index');
+Route::get('category/create', 'CategoryController@create')->name('category.create');
+Route::post('category', 'CategoryController@store')->name('category.store');
+Route::get('category/{id}/edit', 'CategoryController@edit')->name('category.edit');
+Route::put('category/{id}', 'CategoryController@update')->name('category.update');
+Route::delete('category/{id}','CategoryController@destroy')->name('category.destroy');
 
 
 

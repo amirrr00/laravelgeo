@@ -8,16 +8,16 @@
                     <div class="card-header">Add new Category</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('category.store') }}">
+                        <form method="POST" action="{{ route('category.update' , ['id' => $category->id]) }}">
                             @csrf
-
+                            @method('PUT')
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Category Name</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" value="{{ old('name') }}" required autofocus>
+                                           name="name" value="{{ $category->name }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Add
+                                        Update
                                     </button>
                                 </div>
                             </div>
@@ -42,5 +42,23 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function () {
+            $("#getLocation").click(function () {
 
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
+
+
+            });
+        });
+
+        function showPosition(position) {
+            $("#latitude").val(position.coords.latitude);
+            $("#longitude").val(position.coords.longitude);
+        }
+    </script>
 @endsection

@@ -100,6 +100,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
         $location = Location::find($id);
         $location->update($request->except(['_token', '_method']));
         return redirect(route('location.index'));
