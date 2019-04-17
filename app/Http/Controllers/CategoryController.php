@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Location;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show' , 'getCategoryLocation']);
+    }
+
     public function index()
     {
         $categories = Category::all();
@@ -45,6 +52,15 @@ class CategoryController extends Controller
         $category->delete();
 
         return redirect(route('category.index'));
+    }
+
+    public function getCategoryLocations($id) {
+        $locations = Location::where('category_id' , $id)->get();
+        if ($locations->count() !== 0) {
+            return view('location.index', compact('locations'));
+        } else {
+            return 'There not Location for this Category';
+        }
     }
 
 }

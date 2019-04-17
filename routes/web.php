@@ -25,5 +25,7 @@ Route::get('category/{id}/edit', 'CategoryController@edit')->name('category.edit
 Route::put('category/{id}', 'CategoryController@update')->name('category.update');
 Route::delete('category/{id}','CategoryController@destroy')->name('category.destroy');
 
+Route::get('test/{id}' , 'CategoryController@getCategoryLocations');
+
 
 
