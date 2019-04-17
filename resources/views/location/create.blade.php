@@ -28,13 +28,16 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="category_id" class="col-md-4 col-form-label text-md-right">Location Category</label>
+                                <label for="category_id" class="col-md-4 col-form-label text-md-right">Location
+                                    Category</label>
 
                                 <div class="col-md-6">
                                     <select id="category_id" type="text"
-                                           class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}"
-                                           name="category_id" value="{{ old('category_id') }}" required autofocus>
-                                        <option value="1">hello</option>
+                                            class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}"
+                                            name="category_id" value="{{ old('category_id') }}" required autofocus>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
 
                                     </select>
 
@@ -82,7 +85,8 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="location" class="col-md-4 col-form-label text-md-right">Location Lat,Long</label>
+                                <label for="location" class="col-md-4 col-form-label text-md-right">Location
+                                    Lat,Long</label>
 
 
                                 <div class="col-md-6 input-group">
@@ -130,16 +134,16 @@
         $(document).ready(function () {
             $("#getLocation").click(function () {
 
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(showPosition);
-                    } else {
-                        x.innerHTML = "Geolocation is not supported by this browser.";
-                    }
-
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML = "Geolocation is not supported by this browser.";
+                }
 
 
             });
         });
+
         function showPosition(position) {
             $("#latitude").val(position.coords.latitude);
             $("#longitude").val(position.coords.longitude);

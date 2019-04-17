@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,8 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('location.create');
+        $categories = Category::all();
+        return view('location.create' , compact('categories'));
     }
 
     /**
@@ -45,7 +47,7 @@ class LocationController extends Controller
     {
         $request->validate([
             'name' => 'required|max:20',
-            'category_id' => 'require',
+            'category_id' => 'required  ',
             'description' => 'required|min:4',
             'address' => 'required|min:10',
             'latitude' => 'required',
@@ -90,7 +92,8 @@ class LocationController extends Controller
     public function edit($id)
     {
         $location = Location::find($id);
-        return view('location.edit', compact('location'));
+        $categories = Category::all();
+        return view('location.edit', compact('location' , 'categories'));
     }
 
     /**
@@ -102,7 +105,6 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
         $location = Location::find($id);
         $location->update($request->except(['_token', '_method']));
         return redirect(route('location.index'));
