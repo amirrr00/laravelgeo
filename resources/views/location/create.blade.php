@@ -19,9 +19,28 @@
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                            name="name" value="{{ old('name') }}" required autofocus>
 
-                                    @if ($errors->has('email'))
+                                    @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="category_id" class="col-md-4 col-form-label text-md-right">Location Category</label>
+
+                                <div class="col-md-6">
+                                    <select id="category_id" type="text"
+                                           class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}"
+                                           name="category_id" value="{{ old('category_id') }}" required autofocus>
+                                        <option value="1">hello</option>
+
+                                    </select>
+
+                                    @if ($errors->has('category_id'))
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('category_id') }}</strong>
                                     </span>
                                     @endif
                                 </div>

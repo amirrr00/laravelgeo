@@ -22,6 +22,7 @@ class Location extends Model
         'user_id',
         'name',
         'slug',
+        'category_id',
         'description',
         'address',
         'latitude',

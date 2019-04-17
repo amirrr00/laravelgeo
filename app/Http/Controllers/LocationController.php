@@ -45,6 +45,7 @@ class LocationController extends Controller
     {
         $request->validate([
             'name' => 'required|max:20',
+            'category_id' => 'require',
             'description' => 'required|min:4',
             'address' => 'required|min:10',
             'latitude' => 'required',
@@ -55,6 +56,7 @@ class LocationController extends Controller
         Location::create([
             'user_id' => Auth::user()->id,
             'name' => $request->get('name'),
+            'category_id' => $request->get('category_id'),
             'description' => $request->get('description'),
             'address' => $request->get('address'),
             'latitude' => $request->get('latitude'),
