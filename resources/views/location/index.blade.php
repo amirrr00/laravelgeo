@@ -13,12 +13,13 @@
                             <ul>
                                 <li><b>Address :</b> {{$location->address}}</li>
                                 <li><b>Map :</b> <a href="#">Click here to see in googel map</a>
-                                <b>latitude : </b>{{$location->latitude}}
-                                <b>Longitude :</b>{{$location->longitude}}
+                                    <b>latitude : </b>{{$location->latitude}}
+                                    <b>Longitude :</b>{{$location->longitude}}
                                 </li>
                             </ul>
                             <p>{{$location->description}}</p>
-                            <a href="{{route('location.show' , [$location->id])}}" class="btn btn-secondary float-right">go to location page</a>
+                            <a href="{{route('location.show' , [$location->id])}}"
+                               class="btn btn-secondary float-right">go to location page</a>
                         </div>
                     </div>
                 @endforeach
@@ -34,7 +35,13 @@
                         <h4>Categories</h4>
                     </div>
                     <div class="card-body">
-
+                        <ul>
+                            @foreach($categories as $category)
+                                <li>
+                                    <a href="{{route('category.edit' , $category->id)}}">{{$category->name}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
 
                     </div>
                 </div>

@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('style')
+    <link rel="stylesheet" href="/map/css/s.map.min.css">
+    <link rel="stylesheet" href="/map/css/fa/style.css">
+
+    <link rel="stylesheet" href="/map/css/app.css">
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -114,6 +120,7 @@
                             </div>
 
 
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -121,12 +128,16 @@
                                     </button>
                                 </div>
                             </div>
+
+
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 @endsection
 
 @section('scripts')
@@ -148,5 +159,4 @@
             $("#latitude").val(position.coords.latitude);
             $("#longitude").val(position.coords.longitude);
         }
-    </script>
 @endsection

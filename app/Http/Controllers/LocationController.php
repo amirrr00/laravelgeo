@@ -12,7 +12,8 @@ class LocationController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('isAdmin')->only('destroy');
+        $this->middleware('isSeller')->except(['index' , 'destroy']);
     }
 
     /**
@@ -23,7 +24,8 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
-        return view('location.index', compact('locations'));
+        $categories = Category::all();
+        return view('location.index', compact('locations' , 'categories'));
     }
 
     /**

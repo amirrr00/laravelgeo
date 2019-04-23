@@ -11,7 +11,8 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show' , 'getCategoryLocation']);
+        $this->middleware('auth')->except(['index', 'show', 'getCategoryLocation']);
+        $this->middleware('isAdmin')->except(['index', 'getCategoryLocation']);
     }
 
     public function index()
@@ -54,13 +55,15 @@ class CategoryController extends Controller
         return redirect(route('category.index'));
     }
 
-    public function getCategoryLocations($id) {
-        $locations = Location::where('category_id' , $id)->get();
+    public function show($id)
+    {
+        $locations = Location::where('category_id', $id)->get();
         if ($locations->count() !== 0) {
             return view('location.index', compact('locations'));
         } else {
             return 'There not Location for this Category';
         }
     }
+
 
 }
