@@ -23,7 +23,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::all();
+        $locations =Location::orderBy('created_at', 'desc')->get();
         $categories = Category::all();
         return view('location.index', compact('locations' , 'categories'));
     }
@@ -56,8 +56,7 @@ class LocationController extends Controller
             'longitude' => 'required'
         ]);
 
-
-        Location::create([
+        $res = Location::create([
             'user_id' => Auth::user()->id,
             'name' => $request->get('name'),
             'category_id' => $request->get('category_id'),
@@ -66,7 +65,6 @@ class LocationController extends Controller
             'latitude' => $request->get('latitude'),
             'longitude' => $request->get('longitude')
         ]);
-
 
         return redirect(route('location.create'));
 

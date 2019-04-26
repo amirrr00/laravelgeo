@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('style')
-    <link rel="stylesheet" href="/map/css/s.map.min.css">
-    <link rel="stylesheet" href="/map/css/fa/style.css">
+    <link rel="stylesheet" href="/map/dist/css/s.map.min.css">
+    <link rel="stylesheet" href="/map/dist/css/fa/style.css">
 
-    <link rel="stylesheet" href="/map/css/app.css">
+    <link rel="stylesheet" href="/map/app/css/app.css">
 @endsection
 @section('content')
     <div class="container">
@@ -40,7 +40,7 @@
                                 <div class="col-md-6">
                                     <select id="category_id" type="text"
                                             class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}"
-                                            name="category_id" value="{{ old('category_id') }}" required autofocus>
+                                            name="category_id" required>
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
@@ -62,8 +62,7 @@
                                 <div class="col-md-6">
                                     <textarea id="description" type="text"
                                               class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
-                                              name="description" value="{{ old('description') }}" required>
-                                    </textarea>
+                                              name="description" required>{{ old('description') }}</textarea>
                                     @if ($errors->has('description'))
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -79,7 +78,7 @@
                                 <div class="col-md-6">
                                     <input id="address" type="text"
                                            class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}"
-                                           name="address" value="{{ old('address') }}" required>
+                                           name="address" value="{{ old('address') }}" required >
 
 
                                     @if ($errors->has('address'))
@@ -90,34 +89,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="location" class="col-md-4 col-form-label text-md-right">Location
-                                    Lat,Long</label>
 
-
-                                <div class="col-md-6 input-group">
-                                    <input id="latitude" type="text"
-                                           class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}"
-                                           placeholder="latitude"
-                                           name="latitude" value="{{ old('latitude') }}" required>
-                                    <input id="longitude" type="text"
-                                           class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}"
-                                           placeholder="longitude"
-                                           name="longitude" value="{{ old('longitude') }}" required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-success" type="button" id="getLocation">Send Your
-                                            Location
-                                        </button>
-                                        <div id="javad"></div>
-                                    </div>
-
-                                    @if ($errors->has('location'))
-                                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('location') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
+                            <div class="form-group">
+                                <input type="hidden" name="latitude" id="latitude">
+                                <input type="hidden" name="longitude" id="longitude">
+                                <div class="col-lg-12"><label class="col-md-4 col-form-label text-md-right">location in map</label></div>
+                                <div id="map" class="col-lg-12" style="height: 300px"></div>
                             </div>
+
+
 
 
 
@@ -128,9 +108,23 @@
                                     </button>
                                 </div>
                             </div>
-
-
                         </form>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Pages</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><a href="/">home</a></li>
+                            <li><a href="{{route('category.create')}}">create category</a></li>
+                            <li><a href="{{route('category.index')}}">manage category</a></li>
+                            <li><a href="{{route('location.index')}}">all locations</a></li>
+                            <li><a href="{{route('request.category.create')}}">Category request</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -138,25 +132,18 @@
     </div>
 
 
+
+
 @endsection
 
 @section('scripts')
-    <script>
-        $(document).ready(function () {
-            $("#getLocation").click(function () {
 
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(showPosition);
-                } else {
-                    x.innerHTML = "Geolocation is not supported by this browser.";
-                }
+    <script type="text/javascript" src="{{ asset('map/dist/js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('map/dist/js/jquery.env.js') }}"></script>
 
+    <script type="text/javascript" src="{{ asset('map/dist/js/s.map.styles.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('map/dist/js/s.map.min.js') }}"></script>
 
-            });
-        });
-
-        function showPosition(position) {
-            $("#latitude").val(position.coords.latitude);
-            $("#longitude").val(position.coords.longitude);
-        }
+    <script type="text/javascript" src="{{ asset('map/app/js/app.js') }}"></script>
 @endsection
+

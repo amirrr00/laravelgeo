@@ -24,15 +24,14 @@ Route::resource('location', 'LocationController');
 Route::get('category', 'CategoryController@index')->name('category.index');
 Route::get('category/create', 'CategoryController@create')->name('category.create');
 
-Route::get('category/{id}', 'CategoryController@show')->name('category.index');
+Route::get('category/{id}', 'CategoryController@show')->name('category.show');
 Route::post('category', 'CategoryController@store')->name('category.store');
 Route::get('category/{id}/edit', 'CategoryController@edit')->name('category.edit');
 Route::put('category/{id}', 'CategoryController@update')->name('category.update');
 Route::delete('category/{id}','CategoryController@destroy')->name('category.destroy');
 
-Route::get('test' , function () {
-    return view('javad');
-});
+Route::get('/req/category/create','RequestController@requestCatCreate')->name('request.category.create');
+Route::post('/req/category','RequestController@requestCatStore')->name('request.category.store');
 
 
 

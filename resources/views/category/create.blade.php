@@ -37,6 +37,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">Pages</div>
+                    <div class="card-body">
+                        <ul>
+                            <li><a href="/">home</a></li>
+                            <li><a href="{{route('category.create')}}">create category</a></li>
+                            <li><a href="{{route('category.index')}}">manage category</a></li>
+                            <li><a href="{{route('location.index')}}">all locations</a></li>
+                            <li><a href="{{route('request.category.create')}}">Category request</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
